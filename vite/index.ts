@@ -18,7 +18,7 @@ export default function createVitePlugin(
   isBuild = false,
   options: VitePluginOptions = {},
 ): PluginOption[] {
-  const { enableDevTools = env.VITE_APP_ENV === 'dev' } = options
+  const { enableDevTools = env.VITE_APP_ENV === 'development' } = options
 
   // 基础插件
   const basePlugins: PluginOption[] = [

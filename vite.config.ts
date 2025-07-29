@@ -4,7 +4,7 @@ import createVitePlugin from './vite'
 
 // 环境变量类型
 export interface EnvConfig {
-  VITE_APP_ENV: 'dev' | 'prod'
+  VITE_APP_ENV: 'development' | 'production'
   VITE_APP_TITLE: string
   VITE_BASE_URL: string
   VITE_BUILD_COMPRESS?: string

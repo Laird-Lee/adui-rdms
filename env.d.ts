@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 interface ImportMetaEnv {
-  readonly VITE_APP_ENV: 'dev' | 'prod'
+  readonly VITE_APP_ENV: 'development' | 'production'
   readonly VITE_APP_TITLE: string
   readonly VITE_BASE_URL: string
   readonly VITE_BUILD_COMPRESS?: 'gzip' | 'brotli' | string
