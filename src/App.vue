@@ -19,6 +19,10 @@ const switchToNextMode = () => {
   const nextIndex = (currentIndex + 1) % modes.length
   themeStore.toggleMode(modes[nextIndex])
 }
+
+onBeforeUnmount(() => {
+  themeStore.cleanup()
+})
 </script>
 
 <template>

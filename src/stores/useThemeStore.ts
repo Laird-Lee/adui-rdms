@@ -11,6 +11,7 @@ export const useThemeStore = defineStore(
   'theme',
   () => {
     const currentTheme = ref<ThemeConfig>(defaultTheme)
+    let cleanupListener: (() => void) | null = null
 
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
 
@@ -71,8 +72,15 @@ export const useThemeStore = defineStore(
 
     // 初始化
     function init() {
-      setupSystemThemeListener()
+      cleanupListener = setupSystemThemeListener()
       applyTheme()
+    }
+
+    function cleanup() {
+      if (cleanupListener) {
+        cleanupListener()
+        cleanupListener = null
+      }
     }
 
     return {
@@ -81,6 +89,7 @@ export const useThemeStore = defineStore(
       toggleMode,
       changeStyle,
       init,
+      cleanup,
     }
   },
   {
