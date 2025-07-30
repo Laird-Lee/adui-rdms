@@ -7,7 +7,7 @@
 
 [![license](https://img.shields.io/github/license/Laird-Lee/adui-rdms.svg)](LICENSE)
 
-  <h1>Vue Vben Admin</h1>
+  <h1>ADui-RDMS</h1>
 </div>
 # adui-rdms
 
