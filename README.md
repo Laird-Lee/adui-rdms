@@ -1,4 +1,14 @@
-[logo](public/logo.svg)
+<div align="center">
+  <a href="https://github.com/Laird-Lee/adui-rdms">
+    <img alt="ADui-RDMS Logo" width="215" src="https://github.com/Laird-Lee/adui-rdms/blob/main/public/logo.svg">
+  </a>
+  <br>
+  <br>
+
+[![license](https://img.shields.io/github/license/Laird-Lee/adui-rdms.svg)](LICENSE)
+
+  <h1>Vue Vben Admin</h1>
+</div>
 # adui-rdms
 
 This template should help get you started developing with Vue 3 in Vite.
