@@ -1,9 +1,9 @@
 <div align="center">
   <a href="https://github.com/Laird-Lee/adui-rdms">
-    <img alt="ADui-RDMS Logo" width="215" src="https://github.com/Laird-Lee/adui-rdms/blob/main/public/logo.svg">
+    <img alt="ADui RDMS Logo" width="215" src="https://github.com/Laird-Lee/adui-rdms/blob/main/public/logo.svg">
   </a>
 
-  <h1>ADui-RDMS</h1>
+  <h1>ADui RDMS</h1>
 
   <p>一个现代化的企业研发项目管理系统</p>
 
