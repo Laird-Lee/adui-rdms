@@ -1,5 +1,5 @@
 import '@unocss/reset/normalize.css'
-import '@/assets/styles/variables.css'
+import '@/assets/styles/theme-variables.css'
 import 'virtual:uno.css'
 
 import App from './App.vue'

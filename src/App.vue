@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/stores/useThemeStore.ts'
 import { THEME_MODE, THEME_STYLE } from '@/constants/theme.ts'
+import LogoTwoTone from '@/assets/icons/LogoTwoTone.vue'
 
 const themeStore = useThemeStore()
 
@@ -11,6 +12,7 @@ const switchToNextTheme = () => {
   const currentIndex = styles.indexOf(themeStore.currentTheme.style)
   const nextIndex = (currentIndex + 1) % styles.length
   themeStore.changeStyle(styles[nextIndex])
+  switchColor()
 }
 
 const switchToNextMode = () => {
@@ -18,6 +20,18 @@ const switchToNextMode = () => {
   const currentIndex = modes.indexOf(themeStore.currentTheme.mode)
   const nextIndex = (currentIndex + 1) % modes.length
   themeStore.toggleMode(modes[nextIndex])
+  switchColor()
+}
+
+const brandColor = ref('')
+const successColor = ref('')
+
+const switchColor = () => {
+  // 获取计算后的样式
+  const styles = getComputedStyle(document.documentElement)
+  // 获取具体的颜色值
+  successColor.value = styles.getPropertyValue('--td-success-color-5').trim()
+  brandColor.value = styles.getPropertyValue('--td-brand-color-5').trim()
 }
 
 onBeforeUnmount(() => {
@@ -32,6 +46,7 @@ onBeforeUnmount(() => {
       <t-button variant="outline" theme="default">描边按钮</t-button>
       <t-button variant="dashed" theme="default">虚框按钮</t-button>
       <t-button variant="text" theme="default">文字按钮</t-button>
+      <logo-two-tone :colors="[brandColor, successColor]" />
     </t-space>
     <t-space>
       <t-button theme="primary" @click="switchToNextMode">填充按钮（切换模式）</t-button>

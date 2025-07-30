@@ -1,3 +1,4 @@
+[logo](public/logo.svg)
 # adui-rdms
 
 This template should help get you started developing with Vue 3 in Vite.
