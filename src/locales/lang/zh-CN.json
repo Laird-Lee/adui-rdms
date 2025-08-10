@@ -1,0 +1,16 @@
+{
+  "common": {
+    "ok": "确定",
+    "cancel": "取消",
+    "profile": "个人中心",
+    "logout": "退出登录",
+    "default": "默认"
+  },
+  "setting": {
+    "theme": "主题设置"
+  },
+  "title": {
+    "theme": "主题",
+    "mode": "模式"
+  }
+}

@@ -1,5 +1,6 @@
-import type { ThemeConfig, ThemeStyle } from '@/types/theme.ts'
+import type { ThemeConfig, ThemeMode, ThemeStyle } from '@/types/theme.ts'
 import { THEME_MODE, THEME_STYLE } from '@/constants/theme.ts'
+import { withViewTransition } from '@/utils/view-transition.ts'
 
 // 默认主题配置
 const defaultTheme: ThemeConfig = {
@@ -22,10 +23,10 @@ export const useThemeStore = defineStore(
       }
     }
 
-    function toggleMode() {
-      const newMode =
-        currentTheme.value.mode === THEME_MODE.LIGHT ? THEME_MODE.DARK : THEME_MODE.LIGHT
-      setTheme({ mode: newMode })
+    async function toggleMode(value: ThemeMode) {
+      await withViewTransition(() => {
+        setTheme({ mode: value })
+      })
     }
 
     function changeStyle(style: ThemeStyle) {

@@ -7,7 +7,7 @@ export default function createComponentsPlugin(): PluginOption[] {
   return [
     AutoImport({
       // 自动导入 Vue 相关函数
-      imports: ['vue', 'vue-router', 'pinia'],
+      imports: ['vue', 'vue-router', 'pinia', 'vue-i18n'],
       // 指定文件生成位置
       dts: 'src/auto-imports.d.ts',
       resolvers: [

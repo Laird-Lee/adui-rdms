@@ -24,10 +24,6 @@ defineProps<{ colors: string[] }>()
 
 <style scoped>
 .dynamic-svg {
-  width: 10em;
-  height: 10em;
-  vertical-align: -0.15em;
   fill: currentColor;
-  overflow: hidden;
 }
 </style>

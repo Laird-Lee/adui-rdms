@@ -1,0 +1,16 @@
+{
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "profile": "Profile",
+    "logout": "Log out",
+    "default": "Default"
+  },
+  "setting": {
+    "theme": "Theme Settings"
+  },
+  "title": {
+    "theme": "Theme",
+    "mode": "Mode"
+  }
+}

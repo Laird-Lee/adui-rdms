@@ -1,11 +1,14 @@
 import type { App } from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import BaseRoute from '@/router/modules/BaseRoute.ts'
 
 const BaseUrl = import.meta.env.VITE_BASE_URL
 
+const routes: RouteRecordRaw[] = [...BaseRoute]
+
 export const router = createRouter({
   history: createWebHashHistory(BaseUrl),
-  routes: [],
+  routes: routes,
 })
 
 export async function setupRouter(app: App<Element>) {

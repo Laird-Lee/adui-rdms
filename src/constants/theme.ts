@@ -9,3 +9,5 @@ export const THEME_STYLE = {
   EVA_02: 'eva-02',
   MODE: 'mode',
 } as const
+
+export type ThemeStyle = (typeof THEME_STYLE)[keyof typeof THEME_STYLE]
