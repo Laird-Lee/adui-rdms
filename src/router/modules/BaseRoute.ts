@@ -16,182 +16,191 @@ const BaseRoute: RouteRecordRaw[] = [
         },
         component: () => import('@/views/test/index.vue'),
       },
-      // 项目管理
-      {
-        path: '/project',
-        name: 'project',
-        meta: {
-          icon: 'user',
-          title: { zh: '项目管理', en: 'Project Management' },
-        },
-        redirect: '/project/list',
-        children: [
-          {
-            path: 'list',
-            name: 'project-list',
-            meta: {
-              icon: 'user',
-              title: { zh: '项目列表', en: 'Project List' },
-            },
-            redirect: '/project/list/view-project',
-            children: [
-              {
-                path: 'view-project',
-                name: 'view-project',
-                meta: { icon: 'user', title: { zh: '查看项目', en: 'View Project' } },
-                component: () => import('@/views/project/list/view-project/index.vue'),
-              },
-              {
-                path: 'create-project',
-                name: 'create-project',
-                meta: { title: { zh: '新建项目', en: 'Create Project' } },
-                component: () => import('@/views/project/list/create-project/index.vue'),
-              },
-              {
-                path: 'project-approval',
-                name: 'project-approval',
-                meta: { title: { zh: '项目审批', en: 'Project Approval' } },
-                component: () => import('@/views/project/list/project-approval/index.vue'),
-              },
-            ],
-          },
-          {
-            path: 'plan',
-            name: 'project-plan',
-            meta: { title: { zh: '项目计划', en: 'Project Plan' } },
-            redirect: '/project/plan/gantt',
-            children: [
-              {
-                path: 'gantt',
-                name: 'gantt',
-                meta: { title: { zh: '甘特图', en: 'Gantt Chart' } },
-                component: () => import('@/views/project/plan/gantt/index.vue'),
-              },
-              {
-                path: 'milestone',
-                name: 'milestone',
-                meta: { title: { zh: '里程碑', en: 'Milestones' } },
-                component: () => import('@/views/project/plan/milestone/index.vue'),
-              },
-              {
-                path: 'stage-review',
-                name: 'stage-review',
-                meta: { title: { zh: '阶段验收', en: 'Stage Review' } },
-                component: () => import('@/views/project/plan/stage-review/index.vue'),
-              },
-            ],
-          },
-          {
-            path: 'task',
-            name: 'task-management',
-            meta: { title: { zh: '任务管理', en: 'Task Management' } },
-            redirect: '/project/task/task-list',
-            children: [
-              {
-                path: 'task-list',
-                name: 'task-list',
-                meta: { title: { zh: '任务列表', en: 'Task List' } },
-                component: () => import('@/views/project/task/task-list/index.vue'),
-              },
-              {
-                path: 'wbs',
-                name: 'wbs',
-                meta: { title: { zh: 'WBS任务分解', en: 'WBS Decomposition' } },
-                component: () => import('@/views/project/task/wbs/index.vue'),
-              },
-              {
-                path: 'my-tasks',
-                name: 'my-tasks',
-                meta: { title: { zh: '我的任务', en: 'My Tasks' } },
-                component: () => import('@/views/project/task/my-tasks/index.vue'),
-              },
-            ],
-          },
-          {
-            path: 'requirement',
-            name: 'requirement-management',
-            meta: { title: { zh: '需求管理', en: 'Requirement Management' } },
-            redirect: '/project/requirement/requirement-pool',
-            children: [
-              {
-                path: 'requirement-pool',
-                name: 'requirement-pool',
-                meta: { title: { zh: '需求池', en: 'Requirement Pool' } },
-                component: () => import('@/views/project/requirement/requirement-pool/index.vue'),
-              },
-              {
-                path: 'requirement-priority',
-                name: 'requirement-priority',
-                meta: { title: { zh: '需求优先级', en: 'Requirement Priority' } },
-                component: () =>
-                  import('@/views/project/requirement/requirement-priority/index.vue'),
-              },
-            ],
-          },
-          {
-            path: 'bug',
-            name: 'bug-management',
-            meta: { title: { zh: '缺陷管理', en: 'Bug Management' } },
-            redirect: '/project/bug/bug-list',
-            children: [
-              {
-                path: 'bug-list',
-                name: 'bug-list',
-                meta: { title: { zh: '缺陷列表', en: 'Bug List' } },
-                component: () => import('@/views/project/bug/bug-list/index.vue'),
-              },
-              {
-                path: 'bug-stats',
-                name: 'bug-stats',
-                meta: { title: { zh: '缺陷统计', en: 'Bug Statistics' } },
-                component: () => import('@/views/project/bug/bug-stats/index.vue'),
-              },
-            ],
-          },
-          {
-            path: 'change',
-            name: 'change-management',
-            meta: { title: { zh: '变更管理', en: 'Change Management' } },
-            redirect: '/project/change/change-request',
-            children: [
-              {
-                path: 'change-request',
-                name: 'change-request',
-                meta: { title: { zh: '变更申请', en: 'Change Request' } },
-                component: () => import('@/views/project/change/change-request/index.vue'),
-              },
-              {
-                path: 'change-records',
-                name: 'change-records',
-                meta: { title: { zh: '变更记录', en: 'Change Records' } },
-                component: () => import('@/views/project/change/change-records/index.vue'),
-              },
-            ],
-          },
-          {
-            path: 'docs',
-            name: 'docs-deliverables',
-            meta: { title: { zh: '文档与交付', en: 'Docs & Deliverables' } },
-            redirect: '/project/docs/doc-library',
-            children: [
-              {
-                path: 'doc-library',
-                name: 'doc-library',
-                meta: { title: { zh: '文档库', en: 'Document Library' } },
-                component: () => import('@/views/project/docs/doc-library/index.vue'),
-              },
-              {
-                path: 'deliverables',
-                name: 'deliverables',
-                meta: { title: { zh: '交付物管理', en: 'Deliverables' } },
-                component: () => import('@/views/project/docs/deliverables/index.vue'),
-              },
-            ],
-          },
-        ],
-      },
 
-      // // 研发资源
+      // 项目管理
+      // {
+      //   path: '/project',
+      //   name: 'project',
+      //   meta: {
+      //     icon: 'user',
+      //     title: { zh: '项目管理', en: 'Project Management' },
+      //   },
+      //   redirect: '/project/list',
+      //   component: () => import('@/views/project/index.vue'),
+      //   children: [
+      //     {
+      //       path: 'list',
+      //       name: 'project-list',
+      //       meta: {
+      //         icon: 'user',
+      //         title: { zh: '项目列表', en: 'Project List' },
+      //       },
+      //       redirect: '/project/list/view-project',
+      //       component: () => import('@/views/project/list/index.vue'),
+      //       children: [
+      //         {
+      //           path: 'view-project',
+      //           name: 'view-project',
+      //           meta: { icon: 'user', title: { zh: '查看项目', en: 'View Project' } },
+      //           component: () => import('@/views/project/list/view-project/index.vue'),
+      //         },
+      //         {
+      //           path: 'create-project',
+      //           name: 'create-project',
+      //           meta: { title: { zh: '新建项目', en: 'Create Project' } },
+      //           component: () => import('@/views/project/list/create-project/index.vue'),
+      //         },
+      //         {
+      //           path: 'project-approval',
+      //           name: 'project-approval',
+      //           meta: { title: { zh: '项目审批', en: 'Project Approval' } },
+      //           component: () => import('@/views/project/list/project-approval/index.vue'),
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: 'plan',
+      //       name: 'project-plan',
+      //       meta: { title: { zh: '项目计划', en: 'Project Plan' } },
+      //       redirect: '/project/plan/gantt',
+      //       component: () => import('@/views/project/plan/index.vue'),
+      //       children: [
+      //         {
+      //           path: 'gantt',
+      //           name: 'gantt',
+      //           meta: { title: { zh: '甘特图', en: 'Gantt Chart' } },
+      //           component: () => import('@/views/project/plan/gantt/index.vue'),
+      //         },
+      //         {
+      //           path: 'milestone',
+      //           name: 'milestone',
+      //           meta: { title: { zh: '里程碑', en: 'Milestones' } },
+      //           component: () => import('@/views/project/plan/milestone/index.vue'),
+      //         },
+      //         {
+      //           path: 'stage-review',
+      //           name: 'stage-review',
+      //           meta: { title: { zh: '阶段验收', en: 'Stage Review' } },
+      //           component: () => import('@/views/project/plan/stage-review/index.vue'),
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: 'task',
+      //       name: 'task-management',
+      //       meta: { title: { zh: '任务管理', en: 'Task Management' } },
+      //       redirect: '/project/task/task-list',
+      //       component: () => import('@/views/project/task/index.vue'),
+      //       children: [
+      //         {
+      //           path: 'task-list',
+      //           name: 'task-list',
+      //           meta: { title: { zh: '任务列表', en: 'Task List' } },
+      //           component: () => import('@/views/project/task/task-list/index.vue'),
+      //         },
+      //         {
+      //           path: 'wbs',
+      //           name: 'wbs',
+      //           meta: { title: { zh: 'WBS任务分解', en: 'WBS Decomposition' } },
+      //           component: () => import('@/views/project/task/wbs/index.vue'),
+      //         },
+      //         {
+      //           path: 'my-tasks',
+      //           name: 'my-tasks',
+      //           meta: { title: { zh: '我的任务', en: 'My Tasks' } },
+      //           component: () => import('@/views/project/task/my-tasks/index.vue'),
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: 'requirement',
+      //       name: 'requirement-management',
+      //       meta: { title: { zh: '需求管理', en: 'Requirement Management' } },
+      //       redirect: '/project/requirement/requirement-pool',
+      //       component: () => import('@/views/project/requirement/index.vue'),
+      //       children: [
+      //         {
+      //           path: 'requirement-pool',
+      //           name: 'requirement-pool',
+      //           meta: { title: { zh: '需求池', en: 'Requirement Pool' } },
+      //           component: () => import('@/views/project/requirement/requirement-pool/index.vue'),
+      //         },
+      //         {
+      //           path: 'requirement-priority',
+      //           name: 'requirement-priority',
+      //           meta: { title: { zh: '需求优先级', en: 'Requirement Priority' } },
+      //           component: () =>
+      //             import('@/views/project/requirement/requirement-priority/index.vue'),
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: 'bug',
+      //       name: 'bug-management',
+      //       meta: { title: { zh: '缺陷管理', en: 'Bug Management' } },
+      //       redirect: '/project/bug/bug-list',
+      //       component: () => import('@/views/project/bug/index.vue'),
+      //       children: [
+      //         {
+      //           path: 'bug-list',
+      //           name: 'bug-list',
+      //           meta: { title: { zh: '缺陷列表', en: 'Bug List' } },
+      //           component: () => import('@/views/project/bug/bug-list/index.vue'),
+      //         },
+      //         {
+      //           path: 'bug-stats',
+      //           name: 'bug-stats',
+      //           meta: { title: { zh: '缺陷统计', en: 'Bug Statistics' } },
+      //           component: () => import('@/views/project/bug/bug-stats/index.vue'),
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: 'change',
+      //       name: 'change-management',
+      //       meta: { title: { zh: '变更管理', en: 'Change Management' } },
+      //       redirect: '/project/change/change-request',
+      //       component: () => import('@/views/project/change/index.vue'),
+      //       children: [
+      //         {
+      //           path: 'change-request',
+      //           name: 'change-request',
+      //           meta: { title: { zh: '变更申请', en: 'Change Request' } },
+      //           component: () => import('@/views/project/change/change-request/index.vue'),
+      //         },
+      //         {
+      //           path: 'change-records',
+      //           name: 'change-records',
+      //           meta: { title: { zh: '变更记录', en: 'Change Records' } },
+      //           component: () => import('@/views/project/change/change-records/index.vue'),
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       path: 'docs',
+      //       name: 'docs-deliverables',
+      //       meta: { title: { zh: '文档与交付', en: 'Docs & Deliverables' } },
+      //       redirect: '/project/docs/doc-library',
+      //       component: () => import('@/views/project/docs/index.vue'),
+      //       children: [
+      //         {
+      //           path: 'doc-library',
+      //           name: 'doc-library',
+      //           meta: { title: { zh: '文档库', en: 'Document Library' } },
+      //           component: () => import('@/views/project/docs/doc-library/index.vue'),
+      //         },
+      //         {
+      //           path: 'deliverables',
+      //           name: 'deliverables',
+      //           meta: { title: { zh: '交付物管理', en: 'Deliverables' } },
+      //           component: () => import('@/views/project/docs/deliverables/index.vue'),
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
+
+      // 研发资源
       // {
       //   path: '/resources',
       //   name: 'resources',
@@ -200,12 +209,14 @@ const BaseRoute: RouteRecordRaw[] = [
       //     title: { zh: '研发资源', en: 'R&D Resources' },
       //   },
       //   redirect: '/resources/personnel',
+      //   component: () => import('@/views/resources/index.vue'),
       //   children: [
       //     {
       //       path: 'personnel',
       //       name: 'personnel',
       //       meta: { title: { zh: '人员管理', en: 'Personnel Management' } },
       //       redirect: '/resources/personnel/staff-profile',
+      //       component: () => import('@/views/resources/personnel/index.vue'),
       //       children: [
       //         {
       //           path: 'staff-profile',
@@ -220,13 +231,13 @@ const BaseRoute: RouteRecordRaw[] = [
       //           component: () => import('@/views/resources/personnel/staff-load/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/resources/personnel/index.vue'),
       //     },
       //     {
       //       path: 'roles-permissions',
       //       name: 'roles-permissions',
       //       meta: { title: { zh: '角色权限', en: 'Roles & Permissions' } },
       //       redirect: '/resources/roles-permissions/role-list',
+      //       component: () => import('@/views/resources/roles-permissions/index.vue'),
       //       children: [
       //         {
       //           path: 'role-list',
@@ -242,13 +253,13 @@ const BaseRoute: RouteRecordRaw[] = [
       //             import('@/views/resources/roles-permissions/permission-assign/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/resources/roles-permissions/index.vue'),
       //     },
       //     {
       //       path: 'assets',
       //       name: 'assets',
       //       meta: { title: { zh: '研发资产', en: 'R&D Assets' } },
       //       redirect: '/resources/assets/repo-bind',
+      //       component: () => import('@/views/resources/assets/index.vue'),
       //       children: [
       //         {
       //           path: 'repo-bind',
@@ -269,12 +280,11 @@ const BaseRoute: RouteRecordRaw[] = [
       //           component: () => import('@/views/resources/assets/tool-integration/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/resources/assets/index.vue'),
       //     },
       //   ],
       // },
-      //
-      // // 协作与沟通
+
+      // 协作与沟通
       // {
       //   path: '/collaboration',
       //   name: 'collaboration',
@@ -283,12 +293,14 @@ const BaseRoute: RouteRecordRaw[] = [
       //     title: { zh: '协作与沟通', en: 'Collaboration' },
       //   },
       //   redirect: '/collaboration/im',
+      //   component: () => import('@/views/collaboration/index.vue'),
       //   children: [
       //     {
       //       path: 'im',
       //       name: 'im',
       //       meta: { title: { zh: '即时通讯', en: 'Instant Messaging' } },
       //       redirect: '/collaboration/im/project-chat',
+      //       component: () => import('@/views/collaboration/im/index.vue'),
       //       children: [
       //         {
       //           path: 'project-chat',
@@ -303,13 +315,13 @@ const BaseRoute: RouteRecordRaw[] = [
       //           component: () => import('@/views/collaboration/im/notifications/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/collaboration/im/index.vue'),
       //     },
       //     {
       //       path: 'meetings',
       //       name: 'meetings',
       //       meta: { title: { zh: '会议管理', en: 'Meetings' } },
       //       redirect: '/collaboration/meetings/meeting-schedule',
+      //       component: () => import('@/views/collaboration/meetings/index.vue'),
       //       children: [
       //         {
       //           path: 'meeting-schedule',
@@ -325,13 +337,13 @@ const BaseRoute: RouteRecordRaw[] = [
       //           component: () => import('@/views/collaboration/meetings/meeting-minutes/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/collaboration/meetings/index.vue'),
       //     },
       //     {
       //       path: 'knowledge',
       //       name: 'knowledge',
       //       meta: { title: { zh: '知识库', en: 'Knowledge Base' } },
       //       redirect: '/collaboration/knowledge/wiki',
+      //       component: () => import('@/views/collaboration/knowledge/index.vue'),
       //       children: [
       //         {
       //           path: 'wiki',
@@ -347,12 +359,11 @@ const BaseRoute: RouteRecordRaw[] = [
       //             import('@/views/collaboration/knowledge/tech-experience/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/collaboration/knowledge/index.vue'),
       //     },
       //   ],
       // },
-      //
-      // // 数据分析
+
+      // 数据分析
       // {
       //   path: '/analytics',
       //   name: 'analytics',
@@ -361,12 +372,14 @@ const BaseRoute: RouteRecordRaw[] = [
       //     title: { zh: '数据分析', en: 'Analytics' },
       //   },
       //   redirect: '/analytics/project-analysis',
+      //   component: () => import('@/views/analytics/index.vue'),
       //   children: [
       //     {
       //       path: 'project-analysis',
       //       name: 'project-analysis',
       //       meta: { title: { zh: '项目分析', en: 'Project Analysis' } },
       //       redirect: '/analytics/project-analysis/progress-health',
+      //       component: () => import('@/views/analytics/project-analysis/index.vue'),
       //       children: [
       //         {
       //           path: 'progress-health',
@@ -383,13 +396,13 @@ const BaseRoute: RouteRecordRaw[] = [
       //             import('@/views/analytics/project-analysis/workload-analysis/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/analytics/project-analysis/index.vue'),
       //     },
       //     {
       //       path: 'quality',
       //       name: 'quality',
       //       meta: { title: { zh: '研发质量', en: 'R&D Quality' } },
       //       redirect: '/analytics/quality/bug-trend',
+      //       component: () => import('@/views/analytics/quality/index.vue'),
       //       children: [
       //         {
       //           path: 'bug-trend',
@@ -405,13 +418,13 @@ const BaseRoute: RouteRecordRaw[] = [
       //             import('@/views/analytics/quality/requirement-completion/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/analytics/quality/index.vue'),
       //     },
       //     {
       //       path: 'dashboard',
       //       name: 'dashboard',
       //       meta: { title: { zh: '仪表盘', en: 'Dashboard' } },
       //       redirect: '/analytics/dashboard/custom-board',
+      //       component: () => import('@/views/analytics/dashboard/index.vue'),
       //       children: [
       //         {
       //           path: 'custom-board',
@@ -420,11 +433,10 @@ const BaseRoute: RouteRecordRaw[] = [
       //           component: () => import('@/views/analytics/dashboard/custom-board/index.vue'),
       //         },
       //       ],
-      //       component: () => import('@/views/analytics/dashboard/index.vue'),
       //     },
       //   ],
       // },
-      //
+
       // 系统管理
       {
         path: '/system',
@@ -465,14 +477,28 @@ const BaseRoute: RouteRecordRaw[] = [
             path: 'permission-management',
             name: 'permission-management',
             meta: { icon: 'user-marked', title: { zh: '权限管理', en: 'Permission Management' } },
-            redirect: '/system/permission-management/role-management',
+            redirect: '/system/permission-management/user-management',
             children: [
+              {
+                path: 'user-management',
+                name: 'user-management',
+                meta: { title: { zh: '用户管理', en: 'User Management' } },
+                component: () =>
+                  import('@/views/system/permission-management/user-management/index.vue'),
+              },
               {
                 path: 'role-management',
                 name: 'role-management',
                 meta: { title: { zh: '角色管理', en: 'Role Management' } },
                 component: () =>
                   import('@/views/system/permission-management/role-management/index.vue'),
+              },
+              {
+                path: 'menu-management',
+                name: 'menu-management',
+                meta: { title: { zh: '菜单管理', en: 'Menu Management' } },
+                component: () =>
+                  import('@/views/system/permission-management/menu-management/index.vue'),
               },
               {
                 path: 'data-permissions',
