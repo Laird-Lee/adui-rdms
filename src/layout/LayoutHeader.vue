@@ -70,7 +70,12 @@ const handleLocaleClick: DropdownProps['onClick'] = (option) => {
           </t-button>
         </t-badge>
 
-        <t-button shape="circle" variant="text">
+        <t-button
+          shape="circle"
+          variant="text"
+          href="https://github.com/Laird-Lee/adui-rdms"
+          target="_blank"
+        >
           <template #icon>
             <t-icon name="logo-github-filled" />
           </template>

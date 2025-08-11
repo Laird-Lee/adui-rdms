@@ -425,91 +425,94 @@ const BaseRoute: RouteRecordRaw[] = [
       //   ],
       // },
       //
-      // // 系统管理
-      // {
-      //   path: '/system',
-      //   name: 'system',
-      //   meta: {
-      //     icon: 'SettingOutlined',
-      //     title: { zh: '系统管理', en: 'System Management' },
-      //   },
-      //   redirect: '/system/org-structure',
-      //   children: [
-      //     {
-      //       path: 'org-structure',
-      //       name: 'org-structure',
-      //       meta: { title: { zh: '组织架构', en: 'Organization' } },
-      //       redirect: '/system/org-structure/department',
-      //       children: [
-      //         {
-      //           path: 'department',
-      //           name: 'department',
-      //           meta: { title: { zh: '部门管理', en: 'Department Management' } },
-      //           component: () => import('@/views/system/org-structure/department/index.vue'),
-      //         },
-      //         {
-      //           path: 'positions',
-      //           name: 'positions',
-      //           meta: { title: { zh: '岗位管理', en: 'Position Management' } },
-      //           component: () => import('@/views/system/org-structure/positions/index.vue'),
-      //         },
-      //       ],
-      //       component: () => import('@/views/system/org-structure/index.vue'),
-      //     },
-      //     {
-      //       path: 'permission-management',
-      //       name: 'permission-management',
-      //       meta: { title: { zh: '权限管理', en: 'Permission Management' } },
-      //       redirect: '/system/permission-management/role-management',
-      //       children: [
-      //         {
-      //           path: 'role-management',
-      //           name: 'role-management',
-      //           meta: { title: { zh: '角色管理', en: 'Role Management' } },
-      //           component: () =>
-      //             import('@/views/system/permission-management/role-management/index.vue'),
-      //         },
-      //         {
-      //           path: 'data-permissions',
-      //           name: 'data-permissions',
-      //           meta: { title: { zh: '数据权限', en: 'Data Permissions' } },
-      //           component: () =>
-      //             import('@/views/system/permission-management/data-permissions/index.vue'),
-      //         },
-      //       ],
-      //       component: () => import('@/views/system/permission-management/index.vue'),
-      //     },
-      //     {
-      //       path: 'system-settings',
-      //       name: 'system-settings',
-      //       meta: { title: { zh: '系统设置', en: 'System Settings' } },
-      //       redirect: '/system/system-settings/notification-settings',
-      //       children: [
-      //         {
-      //           path: 'notification-settings',
-      //           name: 'notification-settings',
-      //           meta: { title: { zh: '通知配置', en: 'Notification Settings' } },
-      //           component: () =>
-      //             import('@/views/system/system-settings/notification-settings/index.vue'),
-      //         },
-      //         {
-      //           path: 'integration-settings',
-      //           name: 'integration-settings',
-      //           meta: { title: { zh: '集成配置', en: 'Integration Settings' } },
-      //           component: () =>
-      //             import('@/views/system/system-settings/integration-settings/index.vue'),
-      //         },
-      //       ],
-      //       component: () => import('@/views/system/system-settings/index.vue'),
-      //     },
-      //     {
-      //       path: 'audit-log',
-      //       name: 'audit-log',
-      //       meta: { title: { zh: '审计日志', en: 'Audit Log' } },
-      //       component: () => import('@/views/system/audit-log/index.vue'),
-      //     },
-      //   ],
-      // },
+      // 系统管理
+      {
+        path: '/system',
+        name: 'system',
+        meta: {
+          icon: 'system-sum',
+          title: { zh: '系统管理', en: 'System Management' },
+        },
+        redirect: '/system/org-structure',
+        children: [
+          {
+            path: 'org-structure',
+            name: 'org-structure',
+            meta: {
+              icon: 'tree-square-dot',
+              title: { zh: '组织架构', en: 'Organization' },
+            },
+            redirect: '/system/org-structure/department',
+            children: [
+              {
+                path: 'department',
+                name: 'department',
+                meta: {
+                  icon: 'usergroup',
+                  title: { zh: '部门管理', en: 'Department Management' },
+                },
+                component: () => import('@/views/system/org-structure/department/index.vue'),
+              },
+              {
+                path: 'positions',
+                name: 'positions',
+                meta: { icon: 'user-marked', title: { zh: '岗位管理', en: 'Position Management' } },
+                component: () => import('@/views/system/org-structure/positions/index.vue'),
+              },
+            ],
+          },
+          {
+            path: 'permission-management',
+            name: 'permission-management',
+            meta: { icon: 'user-marked', title: { zh: '权限管理', en: 'Permission Management' } },
+            redirect: '/system/permission-management/role-management',
+            children: [
+              {
+                path: 'role-management',
+                name: 'role-management',
+                meta: { title: { zh: '角色管理', en: 'Role Management' } },
+                component: () =>
+                  import('@/views/system/permission-management/role-management/index.vue'),
+              },
+              {
+                path: 'data-permissions',
+                name: 'data-permissions',
+                meta: { title: { zh: '数据权限', en: 'Data Permissions' } },
+                component: () =>
+                  import('@/views/system/permission-management/data-permissions/index.vue'),
+              },
+            ],
+          },
+          {
+            path: 'system-settings',
+            name: 'system-settings',
+            meta: { title: { zh: '系统设置', en: 'System Settings' } },
+            redirect: '/system/system-settings/notification-settings',
+            children: [
+              {
+                path: 'notification-settings',
+                name: 'notification-settings',
+                meta: { title: { zh: '通知配置', en: 'Notification Settings' } },
+                component: () =>
+                  import('@/views/system/system-settings/notification-settings/index.vue'),
+              },
+              {
+                path: 'integration-settings',
+                name: 'integration-settings',
+                meta: { title: { zh: '集成配置', en: 'Integration Settings' } },
+                component: () =>
+                  import('@/views/system/system-settings/integration-settings/index.vue'),
+              },
+            ],
+          },
+          {
+            path: 'audit-log',
+            name: 'audit-log',
+            meta: { title: { zh: '审计日志', en: 'Audit Log' } },
+            component: () => import('@/views/system/audit-log/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]

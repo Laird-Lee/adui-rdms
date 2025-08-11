@@ -168,17 +168,19 @@ watch(windowWidth, () => {
         <t-submenu v-if="node.children?.length" :value="node.path">
           <template #icon>
             <t-icon v-if="node.icon" :name="node.icon" />
+            <div v-if="!expanded && !node.icon" class="empty-icon"></div>
           </template>
           <template #title>
             <div class="flex items-center gap-8px">
               <span>{{ node.label }}</span>
             </div>
           </template>
-          <menu-children :items="node.children" />
+          <menu-children :collapsed="collapsed" :items="node.children" />
         </t-submenu>
         <t-menu-item v-else :value="node.path">
           <template #icon>
             <t-icon v-if="node.icon" :name="node.icon" />
+            <div v-if="!expanded && !node.icon" class="empty-icon"></div>
           </template>
           <div class="flex items-center gap-8px">
             <span>{{ node.label }}</span>
@@ -194,4 +196,10 @@ watch(windowWidth, () => {
   </t-aside>
 </template>
 
-<style scoped></style>
+<style scoped lang="less">
+.empty-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: var(--td-comp-margin-s);
+}
+</style>
