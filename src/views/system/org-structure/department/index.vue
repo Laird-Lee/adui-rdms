@@ -6,6 +6,7 @@ import {
   type FormProps,
   Popconfirm,
   Space,
+  type TableTreeConfig,
 } from 'tdesign-vue-next'
 import deptApi, {
   type DeptDropdownItem,
@@ -36,7 +37,7 @@ const rules: FormProps['rules'] = {
   parentId: [{ required: false, message: '请选择上级部门！', trigger: 'change' }],
 }
 
-const treeConfig = reactive({ childrenKey: 'children' })
+const treeConfig = reactive<TableTreeConfig>({ childrenKey: 'children', defaultExpandAll: true })
 const deptList = ref<DeptTreeDto[]>([])
 
 // 部门树请求

@@ -9,7 +9,7 @@ const setAccessToken = (token: string) => localStorage.setItem('access_token', t
 
 // 统一的错误提示（这里留空实现，按需替换成项目内的消息组件）
 const notifyError = (msg: string) => {
-  void MessagePlugin.error(msg)
+  void MessagePlugin.error({ content: msg })
 }
 
 // 扩展业务错误类型，避免使用 any
@@ -51,6 +51,12 @@ export const alova = createAlova({
     // 响应拦截：统一处理状态码与数据
     onSuccess: async (response: Response) => {
       if (!response.ok) {
+        const json = (await response.json().catch(() => null)) as {
+          code?: number
+          data?: unknown
+          message?: string
+        } | null
+        notifyError(json?.message ?? '请求错误!')
         // 交给 onError 统一处理
         throw response
       }
@@ -67,7 +73,6 @@ export const alova = createAlova({
 
       const err: BusinessError = new Error(message || '请求失败')
       err.raw = json
-      console.log(err)
       throw err
     },
     onError: async (error: unknown, method: Method) => {
