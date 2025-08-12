@@ -43,6 +43,13 @@ export default defineConfig(({ mode, command }): UserConfig => {
       open: true,
       cors: true,
       strictPort: true,
+      proxy: {
+        '^/dev-api': {
+          target: 'http://localhost:38080',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
     },
 
     // 构建配置
