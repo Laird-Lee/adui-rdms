@@ -7,6 +7,7 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
+  const MessagePlugin: typeof import('tdesign-vue-next')['MessagePlugin']
   const TAutoComplete: typeof import('tdesign-vue-next')['AutoComplete']
   const TCascader: typeof import('tdesign-vue-next')['Cascader']
   const TCheckboxGroup: typeof import('tdesign-vue-next')['CheckboxGroup']

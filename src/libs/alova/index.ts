@@ -1,6 +1,7 @@
 import { createAlova, type Method } from 'alova'
 import adapterFetch from 'alova/fetch'
 import VueHook from 'alova/vue'
+import { MessagePlugin } from 'tdesign-vue-next'
 
 // 你自己的获取/保存 token 的方法（可替换为 Pinia 或其他方案）
 const getAccessToken = () => localStorage.getItem('access_token') || ''
@@ -8,8 +9,7 @@ const setAccessToken = (token: string) => localStorage.setItem('access_token', t
 
 // 统一的错误提示（这里留空实现，按需替换成项目内的消息组件）
 const notifyError = (msg: string) => {
-  // e.g. MessagePlugin.error(msg)
-  console.error(msg)
+  void MessagePlugin.error(msg)
 }
 
 // 扩展业务错误类型，避免使用 any
@@ -43,6 +43,9 @@ export const alova = createAlova({
   baseURL: baseUrl, // TODO: 使用你的后端地址
   statesHook: VueHook,
   requestAdapter: adapterFetch(),
+  cacheFor: {
+    GET: 0,
+  },
   timeout: 15000, // 超时毫秒
   responded: {
     // 响应拦截：统一处理状态码与数据
@@ -64,6 +67,7 @@ export const alova = createAlova({
 
       const err: BusinessError = new Error(message || '请求失败')
       err.raw = json
+      console.log(err)
       throw err
     },
     onError: async (error: unknown, method: Method) => {
@@ -97,6 +101,15 @@ export const alova = createAlova({
       'Content-Type': 'application/json',
       ...(method.config.headers || {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    }
+
+    if (method.type === 'GET') {
+      // 使用 params 更稳妥，alova 会合并到 URL 查询参数
+      const cfg = method.config as { params?: Record<string, unknown> }
+      cfg.params = {
+        ...(cfg.params || {}),
+        _t: Date.now(),
+      }
     }
   },
 })

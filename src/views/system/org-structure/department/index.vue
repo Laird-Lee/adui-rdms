@@ -11,103 +11,15 @@ import deptApi, {
   type DeptDropdownItem,
   type DeptDto,
   type DeptTreeDto,
-} from '@/api/system/org-structure/dept.ts'
+} from '@/api/system/org-structure/dept'
 import { EditIcon, DeleteIcon, BrowseIcon } from 'tdesign-icons-vue-next'
 import { watch } from 'vue'
 import { useRequest } from 'alova/client'
+
 const searchForm = ref<{ name: string; code: string }>({ name: '', code: '' })
 
-const columns: EnhancedTableProps['columns'] = [
-  { colKey: 'name', title: '部门名称', ellipsis: true },
-  { colKey: 'code', title: '部门编码', ellipsis: true },
-  {
-    colKey: 'operation',
-    title: '操作',
-    width: 250,
-    align: 'center',
-    cell: (h, { row }) =>
-      h(Space, [
-        h(
-          Button,
-          {
-            size: 'small',
-            variant: 'text',
-            onClick: () => {
-              dialog.value = { visible: true, title: '查看', type: 'view' }
-              deptForm.value = row as DeptDto
-            },
-          },
-          { icon: () => h(BrowseIcon), default: () => '查看' },
-        ),
-        h(
-          Button,
-          {
-            size: 'small',
-            variant: 'text',
-            theme: 'primary',
-            onClick: () => {
-              dialog.value = { visible: true, title: '编辑', type: 'edit' }
-              deptForm.value = row as DeptDto
-            },
-          },
-          { icon: () => h(EditIcon), default: () => '编辑' },
-        ),
-        h(
-          Popconfirm,
-          {
-            content: '确认删除该项？',
-            theme: 'danger',
-            onConfirm: async () => {
-              if (!row?.id) return
-              await deptApi.delete(row.id).send()
-              await getList()
-            },
-          },
-          {
-            default: () =>
-              h(
-                Button,
-                { size: 'small', variant: 'text', theme: 'danger' },
-                { icon: () => h(DeleteIcon), default: () => '删除' },
-              ),
-          },
-        ),
-      ]),
-  },
-]
-
-const treeConfig = reactive({ childrenKey: 'children' })
-
-const deptList = ref<DeptTreeDto[]>([])
-
-// 使用 alova 的 useRequest 管理部门树数据
-const {
-  data: treeData,
-  loading: treeLoading,
-  error: treeError,
-  send: fetchTree,
-} = useRequest(deptApi.tree(), {
-  immediate: true, // 页面加载即发起请求
-})
-
-watch(treeData, (val) => {
-  deptList.value = val ?? []
-})
-
-// 提供一个复用的刷新函数，供增删改后调用
-const getList = async () => {
-  await fetchTree()
-}
-
-const deptFormRef = ref<FormInstanceFunctions | null>(null)
-
-const rules: FormProps['rules'] = {
-  name: [{ required: true, message: '请输入部门名称！', trigger: 'blur' }],
-  code: [{ required: true, message: '请输入部门编码！', trigger: 'blur' }],
-  parentId: [{ required: false, message: '请选择上级部门！', trigger: 'change' }],
-}
-
-const deptForm = ref<DeptDto>({ name: '', code: '', parentId: '' })
+// 表单模型包含可选 id，便于编辑场景
+type DeptFormModel = DeptDto & { id?: string }
 
 const dialog = ref<{
   visible: boolean
@@ -115,13 +27,35 @@ const dialog = ref<{
   type: 'create' | 'edit' | 'view'
 }>({ visible: false, title: '', type: 'create' })
 
-const handleCreateDept = () => {
-  dialog.value = { visible: true, title: '新增', type: 'create' }
-  // 重置表单
-  deptForm.value = { name: '', code: '', parentId: '' }
+const deptFormRef = ref<FormInstanceFunctions | null>(null)
+const deptForm = ref<DeptFormModel>({ name: '', code: '', parentId: '' })
+
+const rules: FormProps['rules'] = {
+  name: [{ required: true, message: '请输入部门名称！', trigger: 'blur' }],
+  code: [{ required: true, message: '请输入部门编码！', trigger: 'blur' }],
+  parentId: [{ required: false, message: '请选择上级部门！', trigger: 'change' }],
 }
 
-// 部门下拉懒加载
+const treeConfig = reactive({ childrenKey: 'children' })
+const deptList = ref<DeptTreeDto[]>([])
+
+// 部门树请求
+const {
+  data: treeData,
+  loading: treeLoading,
+  error: treeError,
+  send: fetchTree,
+} = useRequest(deptApi.tree(), { immediate: true })
+
+watch(treeData, (val) => {
+  deptList.value = val ?? []
+})
+
+const getList = async () => {
+  await fetchTree()
+}
+
+// 部门下拉（级联/树）
 const deptDropdownOptions = ref<DeptDropdownItem[]>([])
 const {
   data: dropdownData,
@@ -133,7 +67,7 @@ watch(dropdownData, (opts) => {
   deptDropdownOptions.value = opts ?? []
 })
 
-// 弹窗显隐时加载下拉
+// 弹窗打开时加载下拉
 watch(
   () => dialog.value.visible,
   (visible) => {
@@ -141,12 +75,84 @@ watch(
   },
 )
 
-// 确认处理：根据类型分别调用接口
+const handleCreateDept = () => {
+  dialog.value = { visible: true, title: '新增', type: 'create' }
+  deptForm.value = { name: '', code: '', parentId: '' }
+}
+
+const columns: EnhancedTableProps['columns'] = [
+  { colKey: 'name', title: '部门名称', ellipsis: true },
+  { colKey: 'code', title: '部门编码', ellipsis: true },
+  {
+    colKey: 'operation',
+    title: '操作',
+    width: 250,
+    align: 'center',
+    cell: (h, { row }) =>
+      h(Space, null, {
+        default: () => [
+          h(
+            Button,
+            {
+              size: 'small',
+              variant: 'text',
+              onClick: () => {
+                dialog.value = { visible: true, title: '查看', type: 'view' }
+                deptForm.value = row as DeptFormModel
+              },
+            },
+            { icon: () => h(BrowseIcon), default: () => '查看' },
+          ),
+          h(
+            Button,
+            {
+              size: 'small',
+              variant: 'text',
+              theme: 'primary',
+              onClick: () => {
+                dialog.value = { visible: true, title: '编辑', type: 'edit' }
+                deptForm.value = row as DeptFormModel
+              },
+            },
+            { icon: () => h(EditIcon), default: () => '编辑' },
+          ),
+          h(
+            Popconfirm,
+            {
+              content: '确认删除该项？',
+              theme: 'danger',
+              onConfirm: async () => {
+                if (!row?.id) return
+                await deptApi.delete(row.id).send()
+                await getList()
+              },
+            },
+            {
+              default: () =>
+                h(
+                  Button,
+                  { size: 'small', variant: 'text', theme: 'danger' },
+                  { icon: () => h(DeleteIcon), default: () => '删除' },
+                ),
+            },
+          ),
+        ],
+      }),
+  },
+]
+
+// 确认提交（根据类型区分）
 const handleConfirm = async () => {
   if (dialog.value.type === 'create') {
     const valid = await deptFormRef.value?.validate()
     if (valid !== true) return
-    await deptApi.create(deptForm.value).send()
+    await deptApi
+      .create({
+        name: deptForm.value.name,
+        code: deptForm.value.code,
+        parentId: deptForm.value.parentId,
+      })
+      .send()
     deptFormRef.value?.reset()
     dialog.value.visible = false
     await getList()
@@ -162,9 +168,9 @@ const handleConfirm = async () => {
   if (dialog.value.type === 'edit') {
     const valid = await deptFormRef.value?.validate()
     if (valid !== true) return
-    if (!('id' in deptForm.value) || !deptForm.value['id']) return
+    if (!deptForm.value.id) return
     await deptApi
-      .update((deptForm.value as any).id, {
+      .update(deptForm.value.id, {
         name: deptForm.value.name,
         code: deptForm.value.code,
         parentId: deptForm.value.parentId,
@@ -181,7 +187,6 @@ const handleConfirm = async () => {
   <t-space class="w-full" direction="vertical">
     <t-card>
       <t-space>
-        <!-- 建议使用 data 属性绑定表单模型 -->
         <t-form :data="searchForm" layout="inline">
           <t-form-item label="部门名称" name="name">
             <t-input
@@ -262,7 +267,14 @@ const handleConfirm = async () => {
     @close="dialog.visible = false"
     @confirm="handleConfirm"
   >
-    <t-form ref="deptFormRef" :data="deptForm" :rules="rules" layout="vertical" label-align="top">
+    <t-form
+      ref="deptFormRef"
+      :disabled="dialog.type === 'view'"
+      :data="deptForm"
+      :rules="rules"
+      layout="vertical"
+      label-align="top"
+    >
       <t-form-item label="部门名称" name="name">
         <t-input v-model="deptForm.name" clearable placeholder="请输入部门名称" />
       </t-form-item>
@@ -275,6 +287,8 @@ const handleConfirm = async () => {
           :options="deptDropdownOptions"
           :loading="dropdownLoading"
           clearable
+          check-strictly
+          filterable
           placeholder="请选择上级部门"
         />
       </t-form-item>
